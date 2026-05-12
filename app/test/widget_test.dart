@@ -7,8 +7,10 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
     
-    // We wait for the initial frame and any routing
-    await tester.pumpAndSettle();
+    // We wait for the initial frame. 
+    // We use pump() instead of pumpAndSettle() because Lottie animations 
+    // can cause pumpAndSettle to timeout as they loop indefinitely.
+    await tester.pump();
 
     // Verify that the app builds and displays the main app name
     // Using find.byType(MaterialApp) as a basic sanity check
