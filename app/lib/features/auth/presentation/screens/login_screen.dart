@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
               height: size.width * 0.6,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppTheme.primaryColor.withOpacity(0.05),
+                color: AppTheme.primaryColor.withValues(alpha: 0.05),
               ),
             ),
           ),
@@ -91,7 +91,7 @@ class LoginScreen extends StatelessWidget {
                     isPassword: true,
                     suffixIcon: Icon(
                       Icons.visibility_off_rounded, 
-                      color: Colors.grey.withOpacity(0.6),
+                      color: Colors.grey.withValues(alpha: 0.6),
                       size: 22,
                     ),
                   ),
@@ -180,7 +180,7 @@ class LoginScreen extends StatelessWidget {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

@@ -22,7 +22,7 @@ class CustomTextField extends StatelessWidget {
       style: const TextStyle(fontWeight: FontWeight.w500),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(color: Colors.black.withOpacity(0.3), fontWeight: FontWeight.normal),
+        hintStyle: TextStyle(color: Colors.black.withValues(alpha: 0.3), fontWeight: FontWeight.normal),
         prefixIcon: Icon(prefixIcon, color: AppTheme.iconColor, size: 22),
         suffixIcon: suffixIcon,
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),

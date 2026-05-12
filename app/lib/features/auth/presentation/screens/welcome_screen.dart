@@ -54,8 +54,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primaryColor),
             strokeWidth: 5,
           ),
-          const SizedBox(height: 20),
-          const Text(
+          SizedBox(height: 20),
+          Text(
             'Cargando perfil...',
             style: TextStyle(color: Colors.black54, fontWeight: FontWeight.w500),
           ),
@@ -148,7 +148,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               Text(
                 user.email,
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 16,
                 ),
               ),
@@ -166,7 +166,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
+                        color: Colors.black.withValues(alpha: 0.05),
                         blurRadius: 20,
                         offset: const Offset(0, -10),
                       )
