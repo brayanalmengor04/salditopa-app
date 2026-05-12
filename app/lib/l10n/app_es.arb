@@ -1,0 +1,10 @@
+{
+  "@@locale": "es",
+  "appName": "SalditoPA",
+  "subtitle": "Un buen plato comienza con buenos ingredientes \ud83e\udd66",
+  "emailHint": "Correo electrónico",
+  "passwordHint": "Contraseña",
+  "loginButton": "Iniciar sesión",
+  "noAccountText": "¿No tienes cuenta? Registrate aqui",
+  "orDivider": "O"
+}
