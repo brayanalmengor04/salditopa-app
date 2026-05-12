@@ -1,0 +1,71 @@
+services:
+  flutter:
+    container_name: ${COMPOSE_PROJECT_NAME:-my-project}-frontend-dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # Puedes sobreescribir la versión de Flutter sin tocar el Dockerfile
+      args:
+        FLUTTER_VERSION: "3.32.0"
+    volumes:
+      # ── Volúmenes anónimos ────────────────────────────────────────────────
+      # Evitan que el bind mount de Windows sobreescriba artefactos compilados
+      # en Linux, y mantienen la caché de Dart entre reinicios del contenedor.
+      - /app/app/.dart_tool
+      - /app/app/build
+      - /app/app/.pub-cache
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    env_file:
+      - .env
+    # ── Hot Restart manual con inotify ───────────────────────────────────────
+    # Flutter Web no soporta Hot Reload nativo en modo servidor como Flutter
+    # nativo, por eso se usa inotify para detectar cambios y enviar SIGUSR2
+    # (Hot Restart) al proceso de Flutter.
+    command: >
+      bash -c "
+        flutter run -d web-server
+          --web-hostname=0.0.0.0
+          --web-port=3000
+          --dart-define-from-file=.env
+          --pid-file /tmp/flutter.pid &
+
+        while inotifywait -r -e modify,create,delete ./lib; do
+          if [ -f /tmp/flutter.pid ]; then
+            echo '>>> Cambio detectado en lib/, activando Hot Restart...' &&
+            kill -USR2 \$(cat /tmp/flutter.pid) 2>/dev/null;
+          fi
+        done
+      "
+    stdin_open: true
+    tty: true
+
+    # ── Docker Compose Watch ─────────────────────────────────────────────────
+    # Complementa a inotify: sync para cambios de código (instantáneo),
+    # rebuild para cambios estructurales (pubspec, .env).
+    develop:
+      watch:
+        # Sincroniza archivos Dart sin reconstruir la imagen
+        - action: sync
+          path: ./app/lib
+          target: /app/app/lib
+
+        # Sincroniza assets web (index.html, manifest, iconos, etc.)
+        - action: sync
+          path: ./app/web
+          target: /app/app/web
+
+        # Sincroniza assets estáticos de la app
+        - action: sync
+          path: ./app/assets
+          target: /app/app/assets
+
+        # Reconstruye si cambian dependencias o entorno
+        - action: rebuild
+          path: ./app/pubspec.yaml
+
+        - action: rebuild
+          path: ./app/pubspec.lock
+
+        - action: rebuild
+          path: ./.env
