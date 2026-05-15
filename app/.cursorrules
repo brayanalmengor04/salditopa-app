@@ -1,0 +1,20 @@
+# AI Rules for SalditoPA Project
+
+## Core Philosophy
+- Maintain Clean Architecture (DDD Layers).
+- Prioritize premium UI/UX aesthetics.
+- Follow SOLID and DRY principles strictly.
+
+## Context Reference
+- Always refer to the structured documentation in `app/AI/Context/` for detailed guidelines.
+- **Architecture**: `app/AI/Context/01_Architecture.md`
+- **Coding Standards**: `app/AI/Context/02_Coding_Standards.md`
+- **UI/UX**: `app/AI/Context/03_UI_UX_Guidelines.md`
+
+## Quick Rules
+- **Domain**: Entities and Interfaces only.
+- **Infrastructure**: Implementations and Models.
+- **Presentation**: UI and Providers.
+- **Coding**: Use `final`, `const`, and `l10n`.
+- **UI**: 16-30px radius, soft shadows, Lottie animations.
+
